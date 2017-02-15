@@ -1,6 +1,6 @@
 require 'fast_gettext'
 require 'gettext_i18n_rails'
-require 'fog/opennebula'
+require 'fog/one'
 
 module ForemanOne
   #Inherit from the Rails module of the parent app (Foreman), not the plugin.
@@ -25,10 +25,10 @@ module ForemanOne
     config.to_prepare do
       begin
         # extend fog opennebula server/
-        require 'fog/opennebula/models/compute/server'
-        require File.expand_path('../../../app/models/concerns/fog_extensions/opennebula/server', __FILE__)
+        require 'fog/one/models/compute/server'
+        require File.expand_path('../../../app/models/concerns/fog_extensions/one/server', __FILE__)
 
-        Fog::Compute::OpenNebula::Server.send(:include, ::FogExtensions::OpenNebula::Server)
+        Fog::Compute::One::Server.send(:include, ::FogExtensions::One::Server)
         ::HostsHelper.send(:include, ForemanOne::HostHelperExtensions)
       rescue => e
         puts "Foreman-One: skipping engine hook (#{e.to_s})"

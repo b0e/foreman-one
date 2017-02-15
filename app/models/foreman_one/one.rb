@@ -127,7 +127,7 @@ module ForemanOne
     private
 
     def client
-      @client ||= ::Fog::Compute.new({:provider => 'OpenNebula', :opennebula_username => user, :opennebula_password => password, :opennebula_endpoint => url})
+      @client ||= ::Fog::Compute.new({:provider => 'One', :opennebula_username => user, :opennebula_password => password, :opennebula_endpoint => url})
     end
 
     def vm_instance_defaults

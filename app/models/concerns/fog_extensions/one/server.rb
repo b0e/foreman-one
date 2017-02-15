@@ -1,5 +1,5 @@
 module FogExtensions
-  module OpenNebula
+  module One
     module Server
       extend ActiveSupport::Concern
 
