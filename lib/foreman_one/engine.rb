@@ -25,7 +25,6 @@ module ForemanOne
     config.to_prepare do
       begin
         # extend fog opennebula server/
-        require 'fog/one/models/compute/server'
         require File.expand_path('../../../app/models/concerns/fog_extensions/one/server', __FILE__)
 
         Fog::Compute::One::Server.send(:include, ::FogExtensions::One::Server)
