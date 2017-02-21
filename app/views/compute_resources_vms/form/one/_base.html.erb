@@ -1,3 +1,11 @@
+<%= compute_resource.flavors.inspect %>
+<%= compute_resource.class %>
+<%= compute_resource.client.client.get_version %>
+<%= compute_resource.foo %>
+=================================
+<%= compute_resource.tt.class %>
+<%= compute_resource.tt.client.class %>
+<%= compute_resource.tt.client.get_version %>
 <%= select_f f, :template_id, compute_resource.flavors, :id, :to_label, {}, :label => _('Templates') %>
 <%= selectable_f f, :vcpu, 1..8, { :include_blank => _("Template default")}, :label => _('VCPUs') %>
 <%= selectable_f f, :memory,[512, 1024, 2048, 4096] , { :include_blank => _("Template default")}, :class => "col-md-2", :label => _('Memory') %>

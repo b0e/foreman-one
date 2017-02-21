@@ -4,7 +4,9 @@ module ForemanOne
 
     validates :user, :password, :presence => true
     validates :url, :format => { :with => URI.regexp }
+    @client = nil
 
+    
     def self.provider_friendly_name
       "OpenNebula"
     end
@@ -124,14 +126,21 @@ module ForemanOne
       client.interfaces.new attr
     end
 
-    private
+    #private
 
     def client
       @client ||= ::Fog::Compute.new({:provider => 'One', :opennebula_username => user, :opennebula_password => password, :opennebula_endpoint => url})
+      #::Fog::Compute.new({:provider => 'One', :opennebula_username => user, :opennebula_password => password, :opennebula_endpoint => url})
     end
+
+    private
 
     def vm_instance_defaults
       super
+    end
+    
+    def logger
+      Rails.logger
     end
   end
 end
