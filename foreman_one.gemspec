@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,locale}/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "fog-one"
+  #s.add_dependency "fog-one"
 
 end
