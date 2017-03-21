@@ -1,6 +1,6 @@
 require 'fast_gettext'
 require 'gettext_i18n_rails'
-#require 'fog/one'
+require 'fog/one'
 
 module ForemanOne
   #Inherit from the Rails module of the parent app (Foreman), not the plugin.
@@ -27,6 +27,7 @@ module ForemanOne
         # extend fog opennebula server/
         #require 'fog/one/models/compute/server'
         require File.expand_path('../../../app/models/concerns/fog_extensions/one/server', __FILE__)
+        autoload ::Fog::Compute::One::Server 'fog/one/models/compute/server'
 
         Fog::Compute::One::Server.send(:include, ::FogExtensions::One::Server)
         #::HostsHelper.send(:include, ForemanOne::HostHelperExtensions)
