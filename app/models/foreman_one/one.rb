@@ -66,7 +66,11 @@ module ForemanOne
       vm.flavor.vcpu = args[:vcpu] unless args[:vcpu].empty?
       vm.flavor.memory = args[:memory] unless args[:memory].empty?
       if args[:location] && !args[:location].empty?
-        vm.flavor.sched_requirements += " & LOCATION=#{args[:location]}"
+        if vm.flavor.sched_requirements.empty?
+          vm.flavor.sched_requirements = "LOCATION=#{args[:location]}"
+        else
+          vm.flavor.sched_requirements += " & LOCATION=#{args[:location]}"
+        end
       end
       vm.flavor.nic = [] unless vm.flavor.nic.is_a? Array
 
