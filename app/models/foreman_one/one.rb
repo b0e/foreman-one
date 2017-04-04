@@ -1,3 +1,4 @@
+require 'fog/one'
 module ForemanOne
   class One < ::ComputeResource
     has_one :key_pair, :foreign_key => :compute_resource_id, :dependent => :destroy
@@ -64,6 +65,9 @@ module ForemanOne
 
       vm.flavor.vcpu = args[:vcpu] unless args[:vcpu].empty?
       vm.flavor.memory = args[:memory] unless args[:memory].empty?
+      if args[:location] && !args[:location].empty?
+        vm.flavor.sched_requirements += " & LOCATION=#{args[:location]}"
+      end
       vm.flavor.nic = [] unless vm.flavor.nic.is_a? Array
 
       #INTERFACES {"new_interfaces"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"virtio"}, "new_1398239695352"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239700415"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239705632"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"e1000"}}
