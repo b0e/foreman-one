@@ -32,7 +32,6 @@ module ForemanOne
         Fog::Compute::One::Server.send(:include, ::FogExtensions::One::Server)
         #::HostsHelper.send(:include, ForemanOne::HostHelperExtensions)
       rescue => e
-        puts "Foreman-One: skipping engine hook (#{e.to_s})"
         Rails.logger.info "Foreman-One: skipping engine hook (#{e.to_s})"
       end
     end
