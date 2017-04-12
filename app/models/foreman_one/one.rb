@@ -56,7 +56,7 @@ module ForemanOne
     def create_vm args = { }
       args = vm_instance_defaults.merge(args.to_hash.symbolize_keys)
       logger.info "CREATEVM ARGS #{args.inspect}"
-      #ARGS: {"name"=>"aaa.example.com", "b0e"=>"foob0e", "foob0e"=>"b0e", "template_id"=>"4", "vcpu"=>"", "memory"=>"", "vminterfaces_attributes"=>{"new_interfaces"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"virtio"}, "new_1398239695352"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239700415"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239705632"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"e1000"}}}
+      #ARGS: {"name"=>"aaa.example.com", "b0e"=>"foob0e", "foob0e"=>"b0e", "template_id"=>"4", "vcpu"=>"", "memory"=>"", "vminterfaces_attributes"=>{"new_interfaces"=>{"network"=>"0", "_delete"=>"", "model"=>"virtio"}, "new_1398239695352"=>{"network"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239700415"=>{"network"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239705632"=>{"network"=>"0", "_delete"=>"", "model"=>"e1000"}}}
 
       vm = client.servers.new
       vm.name = args[:name]
@@ -74,13 +74,13 @@ module ForemanOne
       end
       vm.flavor.nic = [] unless vm.flavor.nic.is_a? Array
 
-      #INTERFACES {"new_interfaces"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"virtio"}, "new_1398239695352"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239700415"=>{"vnetid"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239705632"=>{"vnetid"=>"0", "_delete"=>"", "model"=>"e1000"}}
+      #INTERFACES {"new_interfaces"=>{"network"=>"0", "_delete"=>"", "model"=>"virtio"}, "new_1398239695352"=>{"network"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239700415"=>{"network"=>"2", "_delete"=>"", "model"=>"virtio"}, "new_1398239705632"=>{"network"=>"0", "_delete"=>"", "model"=>"e1000"}}
       logger.debug "NEW #{args[:interfaces_attributes].inspect}"
       nics = args[:interfaces_attributes].values
       if nics.is_a? Array then
         nics.each do |nic|
-          unless (nic["vnetid"].empty? || nic["model"].empty?)
-            vm.flavor.nic << client.interfaces.new({ :vnet => client.networks.get(nic["vnetid"]), :model => nic["model"]})
+          unless (nic["network"].empty? || nic["model"].empty?)
+            vm.flavor.nic << client.interfaces.new({ :vnet => client.networks.get(nic["network"]), :model => nic["model"]})
           end
         end
       end
