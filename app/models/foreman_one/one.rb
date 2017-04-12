@@ -94,10 +94,11 @@ module ForemanOne
     rescue ::OpenNebula::Error => e
       logger.debug "OpenNebula error: #{e.message}\n " + e.backtrace.join("\n ")
       errors.add(:base, e.message.to_s)
-      false
+      raise
     rescue Exception => e 
       logger.debug "#{e.class}: #{e.message}"
       logger.debug e.backtrace
+      raise
     end
 
     def test_connection options = {}
