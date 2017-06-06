@@ -50,7 +50,7 @@
     </tr>
     <tr>
       <td><%= _('Location') %></td>
-      <td><%= if @vm.onevm_object.to_hash['VM']['HISTORY_RECORDS']['HISTORY']['HOSTNAME'].scan(/\d+/).first.to_i % 2; "Corebackbone"; else "Noris"; end %></td>
+      <td><%= ((@vm.onevm_object.to_hash['VM']['HISTORY_RECORDS']['HISTORY']['HOSTNAME'].scan(/\d+/).first.to_i % 2) == 1) ? "Noris" : "CoreBackbone" %></td>
     </tr>
 
   </table>
