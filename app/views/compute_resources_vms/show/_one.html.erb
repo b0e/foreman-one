@@ -43,7 +43,15 @@
       <td><%= @vm.state %></td>
     </tr>
 
-
+    <!-- see [netways #514181]: Feature-Request bzgl.: https://foreman.netways.de/hosts -->
+    <tr>
+      <td><%= _('VM Model') %></td>
+      <td><%= @vm.onevm_object.to_hash['VM']['USER_TEMPLATE']['VM_MODEL'] %></td>
+    </tr>
+    <tr>
+      <td><%= _('Location') %></td>
+      <td><%= if @vm.onevm_object.to_hash['VM']['HISTORY_RECORDS']['HISTORY']['HOSTNAME'].scan(/\d+/).first.to_i % 2; "Corebackbone"; else "Noris"; end %></td>
+    </tr>
 
   </table>
 </div>
